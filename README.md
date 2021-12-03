@@ -24,9 +24,12 @@ https://napari.org/docs/plugins/index.html
 -->
 
 ## Keybindings
+- `q` : erase
+- `w` : fill
+- `e` : paint
+- `r` : pick
+- `t` : create new label
 
-- `w` : switch to fill with `0`
-- `e` : get an unused label number
 - `scroll` : modify brush size when in paint mode
 - `Shift + Scroll` : scrub through time points
 

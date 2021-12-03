@@ -31,12 +31,28 @@ def scroll_time(viewer: napari.Viewer, time_axis: int = 0) -> None:
 
 
 def apply_label_keybinds(labels):
+    @labels.bind_key("q")
+    def paint_mode(viewer):  # noqa: F811
+        labels.mode = "erase"
+
     @labels.bind_key("w")
-    def erase_fill(viewer):  # noqa: F811
+    def paint_mode(viewer):  # noqa: F811
+        labels.mode = "fill"
+
+    @labels.bind_key("s")
+    def paint_mode(viewer):  # noqa: F811
         labels.selected_label = 0
         labels.mode = "fill"
 
     @labels.bind_key("e")
+    def paint_mode(viewer):  # noqa: F811
+        labels.mode = "paint"
+
+    @labels.bind_key("r")
+    def paint_mode(viewer):  # noqa: F811
+        labels.mode = "pick"
+
+    @labels.bind_key("t")
     def new_cell(viewer):  # noqa: F811
         labels.selected_label = labels.data.max() + 1
 
