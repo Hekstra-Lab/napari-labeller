@@ -1,15 +1,16 @@
 from glob import glob
 from pathlib import Path
+from typing import Union
 
 import xarray as xr
 
 
-def list_datasets(base_path):
+def list_datasets(base_path: Union[str, Path]):
     base = Path(base_path)
-    return sorted(glob(str(base.absolute()) + "*.nc"))
+    return sorted(glob(str(base / "*.nc")))
 
 
-def get_dataset(base_path, idx):
+def get_dataset(base_path: Union[str, Path], idx: int):
     path = list_datasets(base_path)[idx]
     ds = xr.load_dataset(path)
     if "update_status" not in ds.attrs:
@@ -22,5 +23,5 @@ def get_dataset(base_path, idx):
     return ds
 
 
-def set_completed(ds):
+def set_completed(ds: xr.Dataset):
     ds.attrs["update_status"] = "completed"

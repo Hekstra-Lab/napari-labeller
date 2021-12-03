@@ -9,11 +9,12 @@ Replace code below according to your needs.
 from pathlib import Path
 
 import napari
-import numpy as np
 from napari_plugin_engine import napari_hook_implementation
 from qtpy import QtWidgets as QtW
 from qtpy import uic
 from qtpy.QtWidgets import QWidget
+
+from ._dataset_handling import get_dataset, list_datasets
 
 
 class LabellerWidget(QWidget):
@@ -36,7 +37,8 @@ class LabellerWidget(QWidget):
         self._browse_folder_btn.clicked.connect(self._browse_folders)
         self._folder_line_edit.setEnabled(False)
 
-        self._img = self.viewer.add_image(self._get_next_image_batch(), name="images")
+        self._next_batch_btn.setEnabled(False)
+        self._prev_batch_btn.setEnabled(False)
         self._next_batch_btn.clicked.connect(self._on_next)
         self._prev_batch_btn.clicked.connect(self._on_prev)
 
@@ -49,15 +51,52 @@ class LabellerWidget(QWidget):
             QtW.QFileDialog.getExistingDirectory(self, "Select Data Folder")
         )
         self._folder_line_edit.setText(str(self._data_folder))
+        self._next_batch_btn.setEnabled(True)
+        self._file_list = list_datasets(self._data_folder)
+        self._num_files = len(self._file_list)
+        self._file_idx = -1
+        self._on_next()
+        self._prev_batch_btn.setEnabled(True)
 
     def _on_next(self):
-        self._img.data = self._get_next_image_batch()
+        if self._file_idx == -1:
+            self._initialize_viewer()
+
+        else:
+            self._working_ds.to_netcdf(self._file_list[self._file_idx])
+            self._file_idx = (
+                self._file_idx + 1
+                if self._file_idx + 1 < self._num_files
+                else self._num_files - 1
+            )
+            self._get_next_image_batch()
 
     def _on_prev(self):
-        pass
+        self._working_ds.to_netcdf(self._file_list[self._file_idx])
+        self._file_idx = self._file_idx - 1 if self._file_idx > 0 else 0
+
+        self._get_next_image_batch()
 
     def _get_next_image_batch(self):
-        return np.random.randn(5, 256, 256)
+        self._working_ds = get_dataset(self._data_folder, self._file_idx)
+        if "Z" in self._working_ds.dims:
+            images = self._working_ds.images.sel(C="BF").mean("Z")
+        else:
+            images = self._working_ds.images.sel(C="BF")
+
+        self._img.data = images
+        self._labels.data = self._working_ds.labels
+
+    def _initialize_viewer(self):
+        self._file_idx = 0
+        self._working_ds = get_dataset(self._data_folder, self._file_idx)
+        if "Z" in self._working_ds.dims:
+            images = self._working_ds.images.sel(C="BF").mean("Z")
+        else:
+            images = self._working_ds.images.sel(C="BF")
+
+        self._img = self.viewer.add_image(images)
+        self._labels = self.viewer.add_labels(self._working_ds.labels)
 
 
 # @magic_factory
