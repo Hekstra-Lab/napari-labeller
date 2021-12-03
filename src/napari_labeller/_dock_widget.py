@@ -16,6 +16,7 @@ from qtpy import uic
 from qtpy.QtWidgets import QWidget
 
 from ._dataset_handling import get_dataset, list_datasets
+from ._keybinds import apply_label_keybinds, scroll_time
 
 
 class LabellerWidget(QWidget):
@@ -104,6 +105,8 @@ class LabellerWidget(QWidget):
 
         self._img = self.viewer.add_image(images)
         self._labels = self.viewer.add_labels(self._working_ds.labels)
+        scroll_time(self.viewer)
+        apply_label_keybinds(self._labels)
 
 
 @napari_hook_implementation

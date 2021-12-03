@@ -7,7 +7,9 @@
 [![codecov](https://codecov.io/gh/Hekstra-Lab/napari-labeller/branch/main/graph/badge.svg)](https://codecov.io/gh/Hekstra-Lab/napari-labeller)
 [![napari hub](https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-labeller)](https://napari-hub.org/plugins/napari-labeller)
 
-A plugindoing manual instance segmentation.
+A plugin for doing manual instance segmentation.
+
+Maybe very similar to [zarpaint](https://github.com/jni/zarpaint)
 
 ----------------------------------
 
@@ -20,6 +22,13 @@ https://github.com/napari/cookiecutter-napari-plugin#getting-started
 and review the napari docs for plugin developers:
 https://napari.org/docs/plugins/index.html
 -->
+
+## Keybindings
+
+- `w` : switch to fill with `0`
+- `e` : get an unused label number
+- `scroll` : modify brush size when in paint mode
+- `Shift + Scroll` : scrub through time points
 
 ## Installation
 
