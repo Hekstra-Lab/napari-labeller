@@ -26,6 +26,7 @@ class LabellerWidget(QWidget):
     _folder_line_edit: QtW.QLineEdit
     _next_batch_btn: QtW.QPushButton
     _prev_batch_btn: QtW.QPushButton
+    _mark_complete_btn: QtW.QPushButton
 
     def __init__(self, napari_viewer: "napari.viewer.Viewer"):
         super().__init__()
