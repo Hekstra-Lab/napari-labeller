@@ -1,15 +1,15 @@
-import pytest
+# import pytest
 
-import napari_labeller
+# import napari_labeller
 
 # this is your plugin name declared in your napari.plugins entry point
-MY_PLUGIN_NAME = "napari-labeller"
+# MY_PLUGIN_NAME = "napari-labeller"
 # the name of your widget(s)
 # MY_WIDGET_NAMES = ["Example Q Widget", "example_magic_widget"]
 
 
 # @pytest.mark.parametrize("widget_name", MY_WIDGET_NAMES)
-# def test_something_with_viewer(widget_name, make_napari_viewer, napari_plugin_manager):
+# def test_with_viewer(widget_name, make_napari_viewer, napari_plugin_manager):
 #     napari_plugin_manager.register(napari_labeller, name=MY_PLUGIN_NAME)
 #     viewer = make_napari_viewer()
 #     num_dw = len(viewer.window._dock_widgets)
