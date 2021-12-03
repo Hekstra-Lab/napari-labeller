@@ -7,6 +7,7 @@ see: https://napari.org/docs/dev/plugins/hook_specifications.html
 Replace code below according to your needs.
 """
 from pathlib import Path
+from typing import Optional, Union
 
 import napari
 from napari_plugin_engine import napari_hook_implementation
@@ -35,6 +36,7 @@ class LabellerWidget(QWidget):
         UI_FILE = str(Path(__file__).parent / "_ui" / "labeller_gui.ui")
         uic.loadUi(str(UI_FILE), self)  # Load the .ui file
 
+        self._data_folder: Optional[Path] = None
         self._browse_folder_btn.clicked.connect(self._browse_folders)
         self._folder_line_edit.setEnabled(False)
 
@@ -43,14 +45,13 @@ class LabellerWidget(QWidget):
         self._next_batch_btn.clicked.connect(self._on_next)
         self._prev_batch_btn.clicked.connect(self._on_prev)
 
-    def _on_click(self):
-        print("napari has", len(self.viewer.layers), "layers")
+    @property
+    def data_folder(self) -> Union[Path, None]:
+        return self._data_folder
 
-    # from https://github.com/tlambert03/napari-micromanager
-    def _browse_folders(self):
-        self._data_folder = Path(
-            QtW.QFileDialog.getExistingDirectory(self, "Select Data Folder")
-        )
+    @data_folder.setter
+    def data_folder(self, value: Union[str, Path]):
+        self._data_folder = Path(value)
         self._folder_line_edit.setText(str(self._data_folder))
         self._next_batch_btn.setEnabled(True)
         self._file_list = list_datasets(self._data_folder)
@@ -58,6 +59,11 @@ class LabellerWidget(QWidget):
         self._file_idx = -1
         self._on_next()
         self._prev_batch_btn.setEnabled(True)
+
+    def _browse_folders(self):
+        self.data_folder = Path(
+            QtW.QFileDialog.getExistingDirectory(self, "Select Data Folder")
+        )
 
     def _on_next(self):
         if self._file_idx == -1:
@@ -100,13 +106,6 @@ class LabellerWidget(QWidget):
         self._labels = self.viewer.add_labels(self._working_ds.labels)
 
 
-# @magic_factory
-# def example_magic_widget(img_layer: "napari.layers.Labels"):
-#     print(f"you have selected {img_layer}")
-
-
 @napari_hook_implementation
 def napari_experimental_provide_dock_widget():
-    # you can return either a single widget, or a sequence of widgets
-    # return [ExampleQWidget, example_magic_widget]
-    return [LabellerWidget]
+    return LabellerWidget
