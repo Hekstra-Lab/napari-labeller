@@ -8,6 +8,7 @@ Replace code below according to your needs.
 """
 from napari_plugin_engine import napari_hook_implementation
 from qtpy.QtWidgets import QWidget, QHBoxLayout, QPushButton
+from qtpy import Alig
 from magicgui import magic_factory
 
 
@@ -20,22 +21,27 @@ class ExampleQWidget(QWidget):
         super().__init__()
         self.viewer = napari_viewer
 
-        btn = QPushButton("Click me!")
-        btn.clicked.connect(self._on_click)
+        prev_img_btn = QPushButton("Prev ")
+        next_img_btn = QPushButton("Next Position")
+        prev_img_btn.clicked.connect(self._on_click)
+        next_img_btn.clicked.connect(self._on_click)
 
         self.setLayout(QHBoxLayout())
-        self.layout().addWidget(btn)
+        self.layout().addWidget(prev_img_btn)
+        self.layout().setAlignment(Qt.AlignCenter)
+        self.layout().addWidget(next_img_btn)
 
     def _on_click(self):
         print("napari has", len(self.viewer.layers), "layers")
 
 
-@magic_factory
-def example_magic_widget(img_layer: "napari.layers.Image"):
-    print(f"you have selected {img_layer}")
+# @magic_factory
+# def example_magic_widget(img_layer: "napari.layers.Labels"):
+#     print(f"you have selected {img_layer}")
 
 
 @napari_hook_implementation
 def napari_experimental_provide_dock_widget():
     # you can return either a single widget, or a sequence of widgets
-    return [ExampleQWidget, example_magic_widget]
+    # return [ExampleQWidget, example_magic_widget]
+    return [ExampleQWidget]
