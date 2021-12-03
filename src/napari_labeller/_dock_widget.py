@@ -13,7 +13,7 @@ import numpy as np
 from napari_plugin_engine import napari_hook_implementation
 from qtpy import QtWidgets as QtW
 from qtpy import uic
-from qtpy.QtWidgets import QHBoxLayout, QPushButton, QWidget
+from qtpy.QtWidgets import QWidget
 
 
 class LabellerWidget(QWidget):
