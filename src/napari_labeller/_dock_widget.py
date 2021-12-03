@@ -8,7 +8,7 @@ Replace code below according to your needs.
 """
 from napari_plugin_engine import napari_hook_implementation
 from qtpy.QtWidgets import QWidget, QHBoxLayout, QPushButton
-from qtpy import Alig
+# from qtpy import Alig
 from magicgui import magic_factory
 
 
