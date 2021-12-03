@@ -1,5 +1,6 @@
-import napari_labeller
 import pytest
+
+import napari_labeller
 
 # this is your plugin name declared in your napari.plugins entry point
 MY_PLUGIN_NAME = "napari-labeller"

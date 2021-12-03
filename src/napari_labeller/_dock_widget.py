@@ -7,8 +7,7 @@ see: https://napari.org/docs/dev/plugins/hook_specifications.html
 Replace code below according to your needs.
 """
 from napari_plugin_engine import napari_hook_implementation
-from qtpy.QtWidgets import QWidget, QHBoxLayout, QPushButton
-from magicgui import magic_factory
+from qtpy.QtWidgets import QHBoxLayout, QPushButton, QWidget
 
 
 class ExampleQWidget(QWidget):
