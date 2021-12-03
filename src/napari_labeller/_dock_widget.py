@@ -104,7 +104,7 @@ class LabellerWidget(QWidget):
             images = self._working_ds.images.sel(C="BF")
 
         self._img = self.viewer.add_image(images)
-        self._labels = self.viewer.add_labels(self._working_ds.labels)
+        self._labels = self.viewer.add_labels(self._working_ds.labels.data)
         scroll_time(self.viewer)
         apply_label_keybinds(self._labels)
 
