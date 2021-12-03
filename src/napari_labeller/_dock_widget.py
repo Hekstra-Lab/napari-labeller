@@ -8,7 +8,6 @@ Replace code below according to your needs.
 """
 from napari_plugin_engine import napari_hook_implementation
 from qtpy.QtWidgets import QWidget, QHBoxLayout, QPushButton
-# from qtpy import Alig
 from magicgui import magic_factory
 
 
@@ -28,7 +27,7 @@ class ExampleQWidget(QWidget):
 
         self.setLayout(QHBoxLayout())
         self.layout().addWidget(prev_img_btn)
-        self.layout().setAlignment(Qt.AlignCenter)
+        # self.layout().setAlignment(Qt.AlignCenter)
         self.layout().addWidget(next_img_btn)
 
     def _on_click(self):
