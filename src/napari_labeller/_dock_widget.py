@@ -88,9 +88,9 @@ class LabellerWidget(QWidget):
     def _get_next_image_batch(self):
         self._working_ds = get_dataset(self._data_folder, self._file_idx)
         if "Z" in self._working_ds.dims:
-            images = self._working_ds.images.sel(C="BF").mean("Z")
+            images = self._working_ds.images.mean("Z")
         else:
-            images = self._working_ds.images.sel(C="BF")
+            images = self._working_ds.images
 
         self._img.data = images
         self._labels.data = self._working_ds.labels
@@ -99,9 +99,9 @@ class LabellerWidget(QWidget):
         self._file_idx = 0
         self._working_ds = get_dataset(self._data_folder, self._file_idx)
         if "Z" in self._working_ds.dims:
-            images = self._working_ds.images.sel(C="BF").mean("Z")
+            images = self._working_ds.images.mean("Z")
         else:
-            images = self._working_ds.images.sel(C="BF")
+            images = self._working_ds.images
 
         self._img = self.viewer.add_image(images)
         self._labels = self.viewer.add_labels(self._working_ds.labels.data)
