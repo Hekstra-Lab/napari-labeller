@@ -35,15 +35,15 @@ https://napari.org/docs/plugins/index.html
 
 ## Installation
 
-You can install `napari-labeller` via [pip]:
+- Clone this git repo to your local machine
+- Create a fresh conda environment with `python=3.9` and activate it
+- Navigate to this directory and install with pip by running
 
-    pip install napari-labeller
+`pip install -e .`
 
+- Launch napari and this extension with
 
-
-To install latest development version :
-
-    pip install git+https://github.com/Hekstra-Lab/napari-labeller.git
+`napari -w napari-labeller`
 
 
 ## Contributing
