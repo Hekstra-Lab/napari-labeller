@@ -37,7 +37,10 @@ https://napari.org/docs/plugins/index.html
 
 - Clone this git repo to your local machine
 - Create a fresh conda environment with `python=3.9` and activate it
-- Navigate to this directory and install with pip by running
+- Install `napari` (the base image viewer) by running
+`pip install napari[all]`
+
+- Navigate to the directory where you cloned this repo and install the plugin with pip by running
 
 `pip install -e .`
 
