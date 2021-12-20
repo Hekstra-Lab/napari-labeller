@@ -1,27 +1,33 @@
 # napari-labeller
-
+<!--
 [![License](https://img.shields.io/pypi/l/napari-labeller.svg?color=green)](https://github.com/Hekstra-Lab/napari-labeller/raw/main/LICENSE)
 [![PyPI](https://img.shields.io/pypi/v/napari-labeller.svg?color=green)](https://pypi.org/project/napari-labeller)
 [![Python Version](https://img.shields.io/pypi/pyversions/napari-labeller.svg?color=green)](https://python.org)
 [![tests](https://github.com/Hekstra-Lab/napari-labeller/workflows/tests/badge.svg)](https://github.com/Hekstra-Lab/napari-labeller/actions)
 [![codecov](https://codecov.io/gh/Hekstra-Lab/napari-labeller/branch/main/graph/badge.svg)](https://codecov.io/gh/Hekstra-Lab/napari-labeller)
 [![napari hub](https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-labeller)](https://napari-hub.org/plugins/napari-labeller)
-
+-->
 A plugin for doing manual instance segmentation.
 
 Maybe very similar to [zarpaint](https://github.com/jni/zarpaint)
 
 ----------------------------------
 
-This [napari] plugin was generated with [Cookiecutter] using [@napari]'s [cookiecutter-napari-plugin] template.
 
-<!--
-Don't miss the full getting started guide to set up your new package:
-https://github.com/napari/cookiecutter-napari-plugin#getting-started
+## Installation
+```bash
+git clone https://github.com/Hekstra-Lab/napari-labeller
+cd napari-labeller
+conda create -n labeller -c conda-forge python=3.9
+conda activate labeller
+pip install napari[all]
+pip install .
+```
 
-and review the napari docs for plugin developers:
-https://napari.org/docs/plugins/index.html
--->
+You can then launch napari with extension active by running:
+
+`napari -w napari-labeller`
+
 
 ## Keybindings
 - `q` : erase
@@ -32,21 +38,6 @@ https://napari.org/docs/plugins/index.html
 
 - `scroll` : modify brush size when in paint mode
 - `Shift + Scroll` : scrub through time points
-
-## Installation
-
-- Clone this git repo to your local machine
-- Create a fresh conda environment with `python=3.9` and activate it
-- Install `napari` (the base image viewer) by running
-`pip install napari[all]`
-
-- Navigate to the directory where you cloned this repo and install the plugin with pip by running
-
-`pip install -e .`
-
-- Launch napari and this extension with
-
-`napari -w napari-labeller`
 
 
 ## Contributing
@@ -63,6 +54,16 @@ Distributed under the terms of the [BSD-3] license,
 
 If you encounter any problems, please [file an issue] along with a detailed description.
 
+## misc
+This [napari] plugin was generated with [Cookiecutter] using [@napari]'s [cookiecutter-napari-plugin] template.
+
+<!--
+Don't miss the full getting started guide to set up your new package:
+https://github.com/napari/cookiecutter-napari-plugin#getting-started
+
+and review the napari docs for plugin developers:
+https://napari.org/docs/plugins/index.html
+-->
 [napari]: https://github.com/napari/napari
 [Cookiecutter]: https://github.com/audreyr/cookiecutter
 [@napari]: https://github.com/napari
