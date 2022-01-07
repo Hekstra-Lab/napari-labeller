@@ -21,7 +21,7 @@ cd napari-labeller
 conda create -n labeller -c conda-forge python=3.9
 conda activate labeller
 pip install "napari[all]"
-pip install .
+pip install -e .
 ```
 
 You can then launch napari with extension active by running:
