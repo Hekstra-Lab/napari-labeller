@@ -20,7 +20,7 @@ git clone https://github.com/Hekstra-Lab/napari-labeller
 cd napari-labeller
 conda create -n labeller -c conda-forge python=3.9
 conda activate labeller
-pip install napari[all]
+pip install "napari[all]"
 pip install .
 ```
 
