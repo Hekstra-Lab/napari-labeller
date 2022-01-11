@@ -48,6 +48,11 @@ class LabellerWidget(QWidget):
 
         self._save_progress_btn.clicked.connect(self._save_progress)
 
+        # recover if our plugin was closed but our layers are still hanging around
+        for l in self.viewer.layers:
+            if hasattr(l, "_labeller_images"):
+                self._recover_information()
+
     @property
     def data_folder(self) -> Union[Path, None]:
         return self._data_folder
@@ -55,13 +60,16 @@ class LabellerWidget(QWidget):
     @data_folder.setter
     def data_folder(self, value: Union[str, Path]):
         self._data_folder = Path(value)
+        self._set_up_folder_variables()
+        self._on_next()
+
+    def _set_up_folder_variables(self):
         self._folder_line_edit.setText(str(self._data_folder))
-        self._next_batch_btn.setEnabled(True)
         self._file_list = list_datasets(self._data_folder)
         self._num_files = len(self._file_list)
-        self._file_idx = -1
-        self._on_next()
+        self._next_batch_btn.setEnabled(True)
         self._prev_batch_btn.setEnabled(True)
+        self._file_idx = -1
 
     def _browse_folders(self):
         self.data_folder = Path(
@@ -100,6 +108,20 @@ class LabellerWidget(QWidget):
         self._img.data = images
         self._labels.data = self._working_ds.labels
 
+    def _recover_information(self):
+        # for i in range(len(self.viewer.layers)):
+        for layer in self.viewer.layers:
+            if hasattr(layer, "_labeller_images"):
+                self._img = layer
+            elif hasattr(layer, "_labeller_labels"):
+                self._labels = layer
+                self._file_list = list
+                self._data_folder = self._labels._data_folder
+                self._set_up_folder_variables()
+                self._file_idx = self._labels._file_idx
+                self._working_ds = get_dataset(self._data_folder, self._file_idx)
+                self._working_ds.labels.data = self._labels.data
+
     def _initialize_viewer(self):
         self._file_idx = 0
         self._working_ds = get_dataset(self._data_folder, self._file_idx)
@@ -109,7 +131,12 @@ class LabellerWidget(QWidget):
             images = self._working_ds.images
 
         self._img = self.viewer.add_image(images)
+        self._img._labeller_images = True
         self._labels = self.viewer.add_labels(self._working_ds.labels.data)
+        self._labels._labeller_labels = True
+        self._labels._data_folder = self._data_folder
+        self._labels._file_idx = self._file_idx
+
         scroll_time(self.viewer)
         apply_label_keybinds(self._labels)
 
