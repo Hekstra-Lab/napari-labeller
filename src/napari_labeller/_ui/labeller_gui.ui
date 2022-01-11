@@ -154,7 +154,7 @@
         </property>
         <layout class="QGridLayout" name="gridLayout_2">
          <item row="0" column="0">
-          <widget class="QPushButton" name="_mark_complete_btn">
+          <widget class="QPushButton" name="_save_progress_btn">
            <property name="enabled">
             <bool>true</bool>
            </property>
@@ -177,7 +177,7 @@
             </size>
            </property>
            <property name="text">
-            <string>Mark as Complete</string>
+            <string>Save Progress</string>
            </property>
           </widget>
          </item>

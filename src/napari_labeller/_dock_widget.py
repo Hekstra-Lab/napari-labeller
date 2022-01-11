@@ -29,7 +29,7 @@ class LabellerWidget(QWidget):
     _folder_line_edit: QtW.QLineEdit
     _next_batch_btn: QtW.QPushButton
     _prev_batch_btn: QtW.QPushButton
-    _mark_complete_btn: QtW.QPushButton
+    _save_progress_btn: QtW.QPushButton
 
     def __init__(self, napari_viewer: "napari.viewer.Viewer"):
         super().__init__()
@@ -45,6 +45,8 @@ class LabellerWidget(QWidget):
         self._prev_batch_btn.setEnabled(False)
         self._next_batch_btn.clicked.connect(self._on_next)
         self._prev_batch_btn.clicked.connect(self._on_prev)
+
+        self._save_progress_btn.clicked.connect(self._save_progress)
 
     @property
     def data_folder(self) -> Union[Path, None]:
@@ -66,12 +68,15 @@ class LabellerWidget(QWidget):
             QtW.QFileDialog.getExistingDirectory(self, "Select Data Folder")
         )
 
+    def _save_progress(self):
+        self._working_ds.to_netcdf(self._file_list[self._file_idx])
+
     def _on_next(self):
         if self._file_idx == -1:
             self._initialize_viewer()
 
         else:
-            self._working_ds.to_netcdf(self._file_list[self._file_idx])
+            self._save_progress()
             self._file_idx = (
                 self._file_idx + 1
                 if self._file_idx + 1 < self._num_files
