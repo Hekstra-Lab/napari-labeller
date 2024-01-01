@@ -38,6 +38,7 @@ def threshold(
 # 2. Second example, a function that adds, subtracts,
 # multiplies, or divides two layers
 
+
 # using Enums is a good way to get a dropdown menu.
 # Used here to select from np functions
 class Operation(Enum):
