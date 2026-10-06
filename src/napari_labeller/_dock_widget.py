@@ -6,6 +6,7 @@ see: https://napari.org/docs/dev/plugins/hook_specifications.html
 
 Replace code below according to your needs.
 """
+
 from pathlib import Path
 from typing import Optional, Union
 
